@@ -1,4 +1,5 @@
 import "./App.css";
+import "./custom.css"
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -42,9 +43,8 @@ function App() {
         style={{ marginTop: 10 }}
       />
       <div>
-        {suggestions.map((suggestion) => (
-          <p key={suggestion.id}>{suggestion.email}</p>
-        ))}
+        {suggestions &&
+          suggestions.map((suggestion, i) => <div key={i} className=" suggestions col-md-12 justify-content-md-center ">{suggestion.email}</div>)}
       </div>
     </div>
   );
