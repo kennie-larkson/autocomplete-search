@@ -1,5 +1,5 @@
 import "./App.css";
-import "./custom.css"
+import "./custom.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -33,6 +33,11 @@ function App() {
     setText(text);
   };
 
+  const onSuggestHandler = (text) => {
+    setText(text);
+    setSuggestions([]);
+  };
+
   return (
     <div className="container">
       <input
@@ -41,10 +46,23 @@ function App() {
         type="text"
         className="col-md-12 input"
         style={{ marginTop: 10 }}
+        onBlur={() => {
+          setTimeout(() => {
+            setSuggestions([]);
+          }, 100);
+        }}
       />
       <div>
         {suggestions &&
-          suggestions.map((suggestion, i) => <div key={i} className=" suggestions col-md-12 justify-content-md-center ">{suggestion.email}</div>)}
+          suggestions.map((suggestion, i) => (
+            <div
+              onClick={() => onSuggestHandler(suggestion.email)}
+              key={i}
+              className=" suggestions col-md-12 justify-content-md-center "
+            >
+              {suggestion.email}
+            </div>
+          ))}
       </div>
     </div>
   );
