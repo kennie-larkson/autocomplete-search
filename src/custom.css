@@ -8,3 +8,8 @@
 .suggestions:hover {
     background-color: grey;
 }
+
+.footer {
+    margin-top: 60vh;
+    margin-bottom: 10vh;
+}
