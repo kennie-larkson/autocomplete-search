@@ -29,7 +29,7 @@ function App() {
         return user.email.match(regex);
       });
     }
-    console.log(matches);
+    // console.log(matches);
     setSuggestions(matches);
     setText(text);
   };
