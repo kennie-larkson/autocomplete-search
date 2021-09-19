@@ -29,27 +29,25 @@ function App() {
         return user.email.match(regex);
       });
     }
+    console.log(matches)
     setSuggestions(matches);
     setText(text);
   };
 
   const onSuggestHandler = (text) => {
-    setText(text);
+    setText(text.toLowerCase());
     setSuggestions([]);
   };
 
   return (
     <div className="container">
       <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">KennieAutoSearch</a>
-      {/* <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-      </ul> */}
-    </div>
-  </nav>
+        <div className="nav-wrapper">
+          <a href="/" className="brand-logo center">
+            KennieAutoSearch
+          </a>
+        </div>
+      </nav>
       <input
         onChange={(e) => changeHandler(e.target.value)}
         value={text}
@@ -59,7 +57,7 @@ function App() {
         onBlur={() => {
           setTimeout(() => {
             setSuggestions([]);
-          }, 100);
+          }, 200);
         }}
       />
       <div>
