@@ -15,7 +15,7 @@ function App() {
       );
 
       const { data } = response;
-      console.log(data);
+      // console.log(data);
       setUsers(data);
     }
     loadUsers();
