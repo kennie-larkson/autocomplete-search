@@ -1,5 +1,10 @@
 import "./App.css";
 import "./custom.css";
+import Input from "./components/Input.js";
+import Suggestions from "./components/Suggestions.js";
+import Navbar from "./components/Navbar.js";
+import Footer from "./components/Footer.js";
+import Button from "./components/Button.js"
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -15,7 +20,7 @@ function App() {
       );
 
       const { data } = response;
-      // console.log(data);
+      console.log(data);
       setUsers(data);
     }
     loadUsers();
@@ -29,85 +34,37 @@ function App() {
         return user.email.match(regex);
       });
     }
-    // console.log(matches);
+
     setSuggestions(matches);
     setText(text);
   };
 
   const onSuggestHandler = (text) => {
     setText(text.toLowerCase());
-    setSuggestions([]);
   };
 
   return (
     <div className="container">
-      <header>
-        <nav>
-          <div className="nav-wrapper">
-            <a href="/" className="brand-logo center">
-              KennieAutoSearch
-            </a>
-          </div>
-        </nav>
-      </header>
+      <Navbar title="KennieAutoSearch"/>
       <main>
-        <input
-          onChange={(e) => changeHandler(e.target.value)}
-          value={text}
-          type="text"
-          className="col-md-12 input"
-          style={{ marginTop: 10 }}
-          onBlur={() => {
-            setTimeout(() => {
-              setSuggestions([]);
-            }, 200);
-          }}
-          placeholder="type something here and we will perform an auto suggestion from our list"
+        <Input
+          setsuggestions={setSuggestions}
+          changehandler={changeHandler}
+          text={text}
         />
         <div>
           {suggestions &&
             suggestions.map((suggestion, i) => (
-              <div
-                onClick={() => onSuggestHandler(suggestion.email)}
+              <Suggestions
+                suggestion={suggestion}
+                onsuggesthandler={onSuggestHandler}
                 key={i}
-                className=" suggestions col-md-12 justify-content-md-center "
-              >
-                {suggestion.email}
-              </div>
+              />
             ))}
         </div>
+        <Button btnText="Visit profile" text={text} users={users}/>
       </main>
-      <footer className="page-footer footer">
-        <div className="container">
-          <div className="row">
-            {/* <div className="col l6 s12">
-              <h5 className="white-text">Footer Content</h5>
-              <p className="grey-text text-lighten-4">
-                You can use rows and columns here to organize your footer
-                content.
-              </p>
-            </div> */}
-            <div className="col l6 s12">
-              <h5 className="white-text">social links</h5>
-              <ul>
-                <li>
-                  <a
-                    className="grey-text text-lighten-3"
-                    href="https://github.com/kennie-larkson/autocomplete"
-                  >
-                    Github Repo
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="footer-copyright">
-          <div className="container">
-            © 2021 Copyright Lawal Abdulrafiu Kehinde
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
